@@ -1,0 +1,7 @@
+import React from 'react'
+
+export default function Home() {
+  return (
+    <div className='text-red-600 font-dancing text-3xl'>Feane</div>
+  )
+}

@@ -9,7 +9,26 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      container:{
+        screens:{
+          sx:"375px",
+          sm:"640px",
+          md:"768px",
+          lg:"1024px",
+          xl:"1170px",
+          "2xl":"1170px"
+        },
+      },
+      colors:{
+        primary: "#ffbe33",
+        secondary: "#222831"
+      },
+      fontFamily:{
+        dancing: ["Dancing Script", "cursive "],
+        sans: ["Open Sans", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 }
