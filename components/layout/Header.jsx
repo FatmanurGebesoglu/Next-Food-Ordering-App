@@ -1,8 +1,13 @@
 import React from "react";
 import Logo from "../ui/logo";
-import {FaUserAlt, FaShoppingCart, FaSearch} from "react-icons/fa";
+import { FaUserAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
+import { useState } from "react";
+import OutsideClickHandler from "react-outside-click-handler";
+import { Title } from "../ui/Title";
 
 const Header = () => {
+  const [isSearchModal, setIsSearchModal] = useState(false);
+
   return (
     <div className=" h-[5.5rem] bg-secondary ">
       <div className="container mx-auto text-white flex justify-between items-center h-full">
@@ -14,7 +19,7 @@ const Header = () => {
             <li className="px-[5px] py-[20px] uppercase hover:text-primary cursor-pointer">
               <a href="">Home</a>
             </li>
-            <li className="px-[5px] py-[20px] uppercase  hover:text-primary cursor-pointer"> 
+            <li className="px-[5px] py-[20px] uppercase  hover:text-primary cursor-pointer">
               <a href="">Menu</a>
             </li>
             <li className="px-[5px] py-[20px] uppercase  hover:text-primary cursor-pointer">
@@ -26,12 +31,27 @@ const Header = () => {
           </ul>
         </nav>
         <div className="flex gap-x-4 items-center">
-            <a href="#"><FaUserAlt/></a>
-            <a href="#"><FaShoppingCart/></a>
-            <a href="#"><FaSearch/></a>
-            <a href="#"><button className="btn-primary">Order Online</button></a>
+          <a href="#">
+            <FaUserAlt className=" hover:text-primary transition-all cursor-pointer" />
+          </a>
+          <a href="#">
+            <FaShoppingCart className=" hover:text-primary transition-all cursor-pointer" />
+          </a>
+          <button onClick={() => setIsSearchModal(true)}>
+            <FaSearch className=" hover:text-primary transition-all cursor-pointer" />
+          </button>
+          <a href="#">
+            <button className="btn-primary">Order Online</button>
+          </a>
         </div>
       </div>
+      {isSearchModal && (
+        <OutsideClickHandler onOutsideClick={() => setIsSearchModal(false)}>
+          <div className="">
+                <Title addclass="text-9xl">Title</Title>
+          </div>
+        </OutsideClickHandler>
+      )}
     </div>
   );
 };
