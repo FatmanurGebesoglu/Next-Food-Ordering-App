@@ -22,9 +22,9 @@ const Header = () => {
         
           
         <nav
-         className={`h-[5.5rem] z-50 relative ${
-          router.asPath === "/" ? "bg-transparent" : "bg-secondary"
-        }`}
+          className={`sm:static absolute top-0 left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden  ${
+            isMenuModal === true && "!grid place-content-center"
+          }`}
         >
           <ul className="flex gap-x-2 sm:flex-row flex-col items-center">
             <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
