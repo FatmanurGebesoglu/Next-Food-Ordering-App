@@ -14,7 +14,7 @@ const Carousel = () => {
         slidesToScroll: 1,
         arrows: false,
         autoplay: true,
-        autoplaySpeed: 30000,
+        autoplaySpeed: 3500,
         appenDots: (dots) => (
           <div>
             <ul>{dots}</ul>
