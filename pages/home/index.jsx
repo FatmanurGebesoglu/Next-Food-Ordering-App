@@ -1,7 +1,12 @@
+import Carousel from '../../components/Carousel'
 import React from 'react'
 
-export default function Home() {
+const Home=()=> {
   return (
-    <div className='text-red-600 font-dancing text-3xl'>Feane</div>
+    <div className=''>
+      <Carousel />
+    </div>
   )
 }
+
+export default Home;
