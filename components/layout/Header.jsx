@@ -11,7 +11,7 @@ const Header = () => {
 
   const router = useRouter();
 
-  console.log(router.asPath);
+  
 
   return (
     <div className={`h-[5.5rem] z-50 relative ${
