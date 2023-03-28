@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { Title } from '../ui/Title'
+import MenuItem from './MenuItem'
 
 const MenuWrapper = () => {
   return (
@@ -12,6 +13,9 @@ const MenuWrapper = () => {
             <button className="px-6 py-2 rounded-3xl ">Pizza</button>
             <button className="px-6 py-2 rounded-3xl">Fries</button>
             <button className="px-6 py-2rounded-3xl ">Drinks</button>
+        </div>
+        <div className="mt-8"> 
+           <MenuItem /> 
         </div>
     </div>
   )
