@@ -1,24 +1,30 @@
-
-import React from 'react'
-import { Title } from '../ui/Title'
-import MenuItem from './MenuItem'
+import React from "react";
+import { Title } from "../ui/Title";
+import MenuItem from "./MenuItem";
 
 const MenuWrapper = () => {
   return (
-    <div className="container mx-auto flex flex-col items-center mt-5 mb-16">
+    <div className="container mx-auto mb-16  ">
+      <div className="flex flex-col items-center  w-full ">
         <Title addclass="text-[40px]">Our Menu</Title>
-        <div>
-            <button className="px-6 py-2 bg-secondary rounded-3xl text-white">All</button>
-            <button className="px-6 py-2 rounded-3xl ">Burger</button>
-            <button className="px-6 py-2 rounded-3xl ">Pizza</button>
-            <button className="px-6 py-2 rounded-3xl">Fries</button>
-            <button className="px-6 py-2rounded-3xl ">Drinks</button>
+        <div className="mt-10">
+          <button className="px-6 py-2 bg-secondary rounded-3xl text-white">
+            All
+          </button>
+          <button className="px-6 py-2 rounded-3xl ">Burger</button>
+          <button className="px-6 py-2 rounded-3xl ">Pizza</button>
+          <button className="px-6 py-2 rounded-3xl">Fries</button>
+          <button className="px-6 py-2rounded-3xl ">Drinks</button>
         </div>
-        <div className="mt-8"> 
-           <MenuItem /> 
-        </div>
-    </div>
-  )
-}
+      </div>
 
-export default MenuWrapper
+      <div className="mt-8 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-4">
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+      </div>
+    </div>
+  );
+};
+
+export default MenuWrapper;
