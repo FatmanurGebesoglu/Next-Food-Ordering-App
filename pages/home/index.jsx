@@ -3,6 +3,7 @@ import React from 'react'
 import Campaigns from '../../components/ui/Campaigns'
 import MenuWrapper from '../../components/product/MenuWrapper';
 import About from '../../components/ui/About';
+import Reservation from '@/components/Reservation';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Campaigns />
       <MenuWrapper />
       <About />
+      <Reservation />
     </div>
   );
 };
