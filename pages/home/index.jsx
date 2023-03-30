@@ -4,15 +4,17 @@ import Campaigns from '../../components/ui/Campaigns'
 import MenuWrapper from '../../components/product/MenuWrapper';
 import About from '../../components/ui/About';
 import Reservation from '@/components/Reservation';
+import Customers from '@/components/customers/Customers';
 
 export default function Home() {
   return (
-    <div>
+    <React.Fragment>
       <Carousel />
       <Campaigns />
       <MenuWrapper />
       <About />
       <Reservation />
-    </div>
+      <Customers />
+    </React.Fragment>
   );
 };
