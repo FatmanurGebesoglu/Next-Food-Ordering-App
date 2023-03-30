@@ -1,7 +1,8 @@
 import React from "react";
 import Input from "./form/Input";
-import {Title} from "./ui/Title";
+import {Title} from "../components/ui/Title";
 import { useFormik } from "formik";
+import { reservationSchema } from "@/schema/reservationSchema";
 
 const Reservation = () => {
   const onSubmit = async (values, actions) => {
@@ -9,7 +10,7 @@ const Reservation = () => {
     actions.resetForm();
   };
 
-  const { values, handleSubmit, handleChange } = useFormik({
+  const { values,errors, handleSubmit, handleChange } = useFormik({
     initialValues: {
       fullName: "",
       phoneNumber: "",
@@ -18,6 +19,7 @@ const Reservation = () => {
       date: "",
     },
     onSubmit,
+    validationSchema: reservationSchema,
   });
 
   console.log(values);
@@ -29,6 +31,7 @@ const Reservation = () => {
       type: "text",
       placeholder: "Your Full Name",
       value: values.fullName,
+      errorMessage: errors.fullName,
     },
     {
       id: 2,
@@ -63,7 +66,7 @@ const Reservation = () => {
 
   return (
     <div className="container mx-auto py-12">
-      <Title addClass="text-[40px] mb-10">Book A Table</Title>
+      <Title addclass="text-[40px] mb-10">Book A Table</Title>
       <div className="flex justify-between flex-wrap-reverse gap-10">
         <form className="lg:flex-1 w-full" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-y-3">
