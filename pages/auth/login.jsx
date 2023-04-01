@@ -3,6 +3,7 @@ import React from "react";
 import Input from "@/components/form/Input";
 import { useFormik } from "formik";
 import { loginSchema } from "@/schema/loginSchema";
+import Link from "next/link";
 
 const Login = () => {
   const onSubmit = async (values, actions) => {
@@ -63,11 +64,11 @@ const Login = () => {
             <i className="fa fa-github mr-2 text-lg"></i>
             GITHUB
           </button>
-          {/* <Link href="/auth/register">
+          <Link href="/auth/register">
             <span className="text-sm underline cursor-pointer text-secondary">
               Do you no have a account?
             </span>
-          </Link> */}
+          </Link>
         </div>
       </form>
     </div>
