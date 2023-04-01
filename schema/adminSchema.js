@@ -1,9 +1,8 @@
 import * as Yup from "yup";
 
-export const loginSchema = Yup.object({
-  email: Yup.string()
-    .email("Geçersiz E-Posta Adresi")
-    .required("E-Posta Adresinizi Giriniz"),
+export const adminSchema = Yup.object({
+  username: Yup.string()
+    .required("Kullanıcı Adınızı Giriniz").min(3, "Kullanıcı Adınız En Az 3 Karakterden Oluşmalıdır"),
     password: Yup.string()
     .required("Şifrenizi Giriniz!")
     .min(8, "Şifreniz En Az 8 Karakterden Oluşmalıdır")
