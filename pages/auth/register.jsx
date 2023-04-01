@@ -3,6 +3,7 @@ import React from "react";
 import Input from "@/components/form/Input";
 import { useFormik } from "formik";
 import { registerSchema } from "@/schema/registerSchema";
+import Link from "next/link";
 
 const Register = () => {
   const onSubmit = async (values, actions) => {
@@ -13,8 +14,10 @@ const Register = () => {
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues: {
+        fullName: "",
         email: "",
         password: "",
+        confirmPassword: "",
       },
       onSubmit,
       validationSchema: registerSchema,
@@ -53,9 +56,9 @@ const Register = () => {
       name: "confirmPassword",
       type: "password",
       placeholder: "Confirm Your Password",
-      value: values.password,
-      errorMessage: errors.password,
-      touched: touched.password,
+      value: values.confirmPasword,
+      errorMessage: errors.confirmPassword,
+      touched: touched.confirmPassword,
     },
   ];
   return (
@@ -76,16 +79,12 @@ const Register = () => {
           ))}
         </div>
         <div className="flex flex-col w-full gap-y-3 mt-6">
-          <button className="btn-primary">LOGIN</button>
-          <button className="btn-primary !bg-secondary">
-            <i className="fa fa-github mr-2 text-lg"></i>
-            GITHUB
-          </button>
-          {/* <Link href="/auth/register">
+          <button className="btn-primary">REGISTER</button>
+          <Link href="/auth/login">
             <span className="text-sm underline cursor-pointer text-secondary">
-              Do you no have a account?
+              Do you have a account?
             </span>
-          </Link> */}
+          </Link>
         </div>
       </form>
     </div>

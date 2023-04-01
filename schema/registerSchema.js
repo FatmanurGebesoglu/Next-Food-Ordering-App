@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const loginSchema = Yup.object({
+export const registerSchema = Yup.object({
   fullName: Yup.string()
     .required("Adınızı ve Soyadınızı Giriniz")
     .min(3, "Adınız ve Soyadınız En Az 3 Karakterden Oluşmalıdır"),
