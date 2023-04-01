@@ -2,7 +2,7 @@ import { Title } from "@/components/ui/Title";
 import React from "react";
 import Input from "@/components/form/Input";
 import { useFormik } from "formik";
-import { loginSchema } from "@/schema/loginSchema";
+import { registerSchema } from "@/schema/registerSchema";
 
 const Register = () => {
   const onSubmit = async (values, actions) => {
@@ -17,7 +17,7 @@ const Register = () => {
         password: "",
       },
       onSubmit,
-      validationSchema: loginSchema,
+      validationSchema: registerSchema,
     });
 
   const inputs = [
