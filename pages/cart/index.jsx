@@ -6,7 +6,7 @@ const Cart = () => {
   return (
     <div className="min-h-[calc(100vh_-_433px)]" >
       <div className="flex justify-between items-center md:flex-row flex-col">
-      <div className="min-h-[calc(100vh_-_433px)] flex items-center flex-1 p-10 overflow-x-auto w-full">
+      <div className="min-h-[calc(100vh_-_433px)] flex items-center flex-1 p-10 overflow-x-auto w-fu">
         <table className="w-full txt-sm text-center text-gray-500 min-w-[1000px]">
           <thead className="text-xs text-gray-400 uppercase bg-gray-700">
             <tr>
