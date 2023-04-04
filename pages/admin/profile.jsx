@@ -3,6 +3,7 @@ import { useState } from "react";
 import Account from "@/components/profile/Account";
 import Password from "@/components/profile/Password";
 import Order from "@/components/profile/Order";
+import Product from "@/components/admin/Product";
 
 const Profile = () => {
   const [tabs, setTabs] = useState(0);
@@ -69,7 +70,7 @@ const Profile = () => {
         </ul>
       </div>
 
-      
+      {tabs === 0 && <Product />}
       {tabs === 1 && <Order />}
     </div>
   );
