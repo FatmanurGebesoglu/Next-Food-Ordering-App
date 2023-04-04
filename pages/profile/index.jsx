@@ -3,12 +3,13 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import { profileSchema } from "../../schema/profileSchema";
 import Account from "@/components/profile/Account";
+import Password from "@/components/profile/Password";
 
 const Profile = () => {
   const [tabs, setTabs] = useState(0);
 
   return (
-    <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col">
+    <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col mb-10">
       <div className="lg:w-80 w-100 flex-shrink-0">
         <div className="relative flex flex-col items-center px-10 py-5 border border-b-0">
           <Image
@@ -61,6 +62,7 @@ const Profile = () => {
       </div>
 
       {tabs === 0 && <Account />}
+      {tabs === 1 && <Password />}
     </div>
   );
 };
