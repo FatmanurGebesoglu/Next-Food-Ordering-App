@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
+
 import Account from "@/components/profile/Account";
 import Password from "@/components/profile/Password";
 import Order from "@/components/profile/Order";
@@ -32,7 +33,7 @@ const Profile = () => {
           </li>
           <li
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
-              tabs === 0 && "bg-primary text-white"
+              tabs === 1 && "bg-primary text-white"
             }`}
             onClick={() => setTabs(1)}
           >
@@ -41,7 +42,7 @@ const Profile = () => {
           </li>
           <li
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
-              tabs === 0 && "bg-primary text-white"
+              tabs === 2 && "bg-primary text-white"
             }`}
             onClick={() => setTabs(2)}
           >
@@ -50,9 +51,9 @@ const Profile = () => {
           </li>
           <li
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
-              tabs === 0 && "bg-primary text-white"
+              tabs === 4 && "bg-primary text-white"
             }`}
-            onClick={() => setTabs(3)}
+            onClick={() => setTabs(4)}
           >
             <i className="fa fa-sign-out"></i>
             <button className="ml-1">Exit</button>
