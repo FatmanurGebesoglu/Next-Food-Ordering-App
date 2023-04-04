@@ -1,7 +1,5 @@
 import Image from "next/image";
 import { useState } from "react";
-import { useFormik } from "formik";
-import { profileSchema } from "../../schema/profileSchema";
 import Account from "@/components/profile/Account";
 import Password from "@/components/profile/Password";
 import Order from "@/components/profile/Order";
