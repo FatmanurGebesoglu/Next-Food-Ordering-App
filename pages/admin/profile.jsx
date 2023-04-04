@@ -46,7 +46,7 @@ const Profile = () => {
             }`}
             onClick={() => setTabs(2)}
           >
-            <i className="fa fa-key"></i>
+            <i className="fa fa-ellipsis-h"></i>
             <button className="ml-1">Categories</button>
           </li>
           <li
@@ -55,7 +55,7 @@ const Profile = () => {
             }`}
             onClick={() => setTabs(3)}
           >
-            <i className="fa fa-sign-out"></i>
+            <i className="fa fa-window-maximize"></i>
             <button className="ml-1">Footer</button>
           </li>
           <li
