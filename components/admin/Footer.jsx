@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../components/form/Input";
 import {Title} from "../../components/ui/Title";
 import { useFormik } from "formik";
-import { profileSchema } from "../../schema/profileSchema";
+import { footerSchema } from "../../schema/footerSchema";
 
 const Footer = () => {
   const onSubmit = async (values, actions) => {
@@ -13,28 +13,37 @@ const Footer = () => {
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
       initialValues: {
-        fullName: "",
-        phoneNumber: "",
+        location: "",
         email: "",
-        address: "",
-        job: "",
-        bio: "",
+        phoneNumber: "",
+        desc: "",
+        day: "",
+        time: "",
       },
       onSubmit,
-      validationSchema: profileSchema,
+      validationSchema: footerSchema,
     });
   const inputs = [
     {
       id: 1,
-      name: "fullName",
+      name: "location",
       type: "text",
-      placeholder: "Your Full Name",
-      value: values.fullName,
-      errorMessage: errors.fullName,
-      touched: touched.fullName,
+      placeholder: "Your Location",
+      value: values.location,
+      errorMessage: errors.location,
+      touched: touched.location,
     },
     {
-      id: 2,
+        id: 2,
+        name: "email",
+        type: "email",
+        placeholder: "Your Email Address",
+        value: values.email,
+        errorMessage: errors.email,
+        touched: touched.email,
+      },
+    {
+      id: 3,
       name: "phoneNumber",
       type: "number",
       placeholder: "Your Phone Number",
@@ -43,40 +52,31 @@ const Footer = () => {
       touched: touched.phoneNumber,
     },
     {
-      id: 3,
-      name: "email",
-      type: "email",
-      placeholder: "Your Email Address",
-      value: values.email,
-      errorMessage: errors.email,
-      touched: touched.email,
-    },
-    {
       id: 4,
-      name: "address",
+      name: "desc",
       type: "text",
-      placeholder: "Your Address",
-      value: values.address,
-      errorMessage: errors.address,
-      touched: touched.address,
+      placeholder: "Your Description",
+      value: values.desc,
+      errorMessage: errors.desc,
+      touched: touched.desc,
     },
     {
       id: 5,
-      name: "job",
+      name: "day",
       type: "text",
-      placeholder: "Your Job",
-      value: values.job,
-      errorMessage: errors.job,
-      touched: touched.job,
+      placeholder: "Update Day",
+      value: values.day,
+      errorMessage: errors.day,
+      touched: touched.day,
     },
     {
       id: 6,
-      name: "bio",
+      name: "time",
       type: "text",
-      placeholder: "Your Bio",
-      value: values.bio,
-      errorMessage: errors.bio,
-      touched: touched.bio,
+      placeholder: "Update Time",
+      value: values.time,
+      errorMessage: errors.time,
+      touched: touched.time,
     },
   ];
   return (
