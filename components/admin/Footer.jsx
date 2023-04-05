@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../../components/form/Input";
-import {Title} from "../../components/ui/Title";
+import { Title } from "../../components/ui/Title";
 import { useFormik } from "formik";
 import { footerSchema } from "../../schema/footerSchema";
 
 const Footer = () => {
+  const [linkAddress, setLinkAddress] = useState("");
+  const [iconName, setIconName] = useState("");
+  const [icons, setIcons] = useState([
+    "fa fa-facebook",
+    "fa fa-twitter, fa fa-instagram",
+  ]);
+
   const onSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 4000));
     actions.resetForm();
@@ -34,14 +41,14 @@ const Footer = () => {
       touched: touched.location,
     },
     {
-        id: 2,
-        name: "email",
-        type: "email",
-        placeholder: "Your Email Address",
-        value: values.email,
-        errorMessage: errors.email,
-        touched: touched.email,
-      },
+      id: 2,
+      name: "email",
+      type: "email",
+      placeholder: "Your Email Address",
+      value: values.email,
+      errorMessage: errors.email,
+      touched: touched.email,
+    },
     {
       id: 3,
       name: "phoneNumber",
@@ -91,6 +98,42 @@ const Footer = () => {
             onChange={handleChange}
           />
         ))}
+      </div>
+      <div className="mt-4 flex justify-between md:items-center md:flex-row flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <Input placeholder="Link Address" value="https://" />
+          <Input
+            placeholder="Icon Name"
+            defaultValue="fa fa-"
+            value={iconName}
+            onChange={(e) => setIconName(e.target.value)}
+          />
+          <button
+            className="btn-primary"
+            type="button"
+            onClick={() => {
+              setIcons([...icons, iconName]), setIconName("fa fa-");
+            }}
+          >
+            Add
+          </button>
+        </div>
+        <ul className="flex items-center gap-6">
+          {icons.map((icon, index) => (
+            <li key={index} className="flex items-center">
+              <i className={`${icon} text-2xl`}></i>
+              <button
+                className="text-danger"
+                onClick={() => {
+                  setIcons((prev) => prev.filter((item, i) => i !== index));
+                }}
+                type="button"
+              >
+                <i className="fa fa-trash text-2xl ml-2"></i>
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
       <button className="btn-primary mt-4">Update</button>
     </form>
