@@ -1,9 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
-import Account from "@/components/profile/Account";
-import Password from "@/components/profile/Password";
-import Order from "@/components/profile/Order";
 import Product from "@/components/admin/Product";
+import Order from "@/components/admin/Order";
 
 const Profile = () => {
   const [tabs, setTabs] = useState(0);
