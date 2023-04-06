@@ -5,11 +5,13 @@ import Search from "../ui/Search";
 import { GiHamburgerMenu, GiCancel } from "react-icons/gi";
 import { useRouter } from "next/router";
 import  Link  from "next/link";
+import {  useSelector } from "react-redux";
 
 
 const Header = () => {
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isMenuModal, setIsMenuModal] = useState(false);
+  const cart = useSelector((state) => state.cart);
   const router = useRouter();
   return (
     <div className={`h-[5.5rem] z-50 relative ${
@@ -50,10 +52,12 @@ const Header = () => {
             <span><FaUserAlt className="hover:text-primary transition-all cursor-pointer" /></span>
           </Link>
           <Link href="/cart">
-            <span><FaShoppingCart className="hover:text-primary transition-all cursor-pointer" /></span>
+            <span className="relative"><FaShoppingCart className="hover:text-primary transition-all cursor-pointer" /></span>
           </Link>
           <button onClick={() => setIsSearchModal(true)}>
-            <span><FaSearch className="hover:text-primary transition-all cursor-pointer" /></span>
+            <span><FaSearch className="hover:text-primary transition-all cursor-pointer" />
+            <span> {cart.products.length} </span>
+            </span>
           </button>
           
           <Link href="#" className="md:inline-block hidden sm">

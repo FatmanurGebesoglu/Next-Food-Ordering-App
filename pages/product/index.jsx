@@ -2,6 +2,8 @@ import Image from "next/image";
 import React from "react";
 import { Title } from "../../components/ui/Title";
 import { useState } from "react";
+import { addProduct } from "@/redux/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const itemOptions = [
   { id: 1, name: "Extra 1", price: 1 },
@@ -9,12 +11,33 @@ const itemOptions = [
   { id: 3, name: "Extra 3", price: 3 },
 ];
 
+const foodItems =[
+  {
+    id: 1,
+    name: "Pizza",
+    price: 10,
+    desc:  "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius dolorem quo, at molestias rem sed et id animi sequi distinctio esse itaque deleniti, harum corporis incidunt excepturi, aut velit? Iste?",
+    extraOptions : [
+      { id: 1, name: "Extra 1", price: 1 },
+    ]
+  }
+]
+
 const Index = () => {
   const [prices, setPrices] = useState([10, 20, 30]);
   const [price, setPrice] = useState(prices[0]);
   const [size, setSize] = useState(0);
   const [optionItems, setOptionItems] = useState(itemOptions);
   const [options, setOptions] = useState([]);
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(addProduct({...foodItems[0], options, price, quantity:1}));
+  };
+  console.log(cart);
+
+
 
   const handleSize = (sizeIndex) => {
     const difference = prices[sizeIndex] - prices[size];
@@ -105,7 +128,7 @@ const Index = () => {
             ))}
           </div>
         </div>
-        <button className="btn-primary">Add to Cart</button>
+        <button className="btn-primary" onClick={handleClick}>Add to Cart</button>
       </div>
     </div>
   );
