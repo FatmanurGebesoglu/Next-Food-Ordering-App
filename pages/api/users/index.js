@@ -1,11 +1,26 @@
+import User from "@/models/User";
 import dbConnect from "@/util/dbConnect";
 
 const handler = async (req, res) => {
-   await dbConnect();
-   res.status(200).json({ message: 'merhaba' });
-   
-   
-};
+  await dbConnect();
+  const { method } = req;
 
+  if (method === "GET") {
+    try {
+      const users = await User.find(); // find all the data in our database
+      res.status(200).json(users);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  if (method === "POST") {
+    try {
+      const newUser = await User.create(req.body); // create a new model in the database
+      res.status(200).json(newUser);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
 
 export default handler;
