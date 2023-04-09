@@ -4,11 +4,27 @@ import Input from "@/components/form/Input";
 import { useFormik } from "formik";
 import { adminSchema } from "@/schema/adminSchema";
 import Link from "next/link";
+import axios from "axios";
+import { toast } from 'react-toastify';
+import { useRouter } from "next/router";
 
 const Login = () => {
+
+  const {push} = useRouter();
+
   const onSubmit = async (values, actions) => {
-    await new Promise((resolve) => setTimeout(resolve, 4000));
-    actions.resetForm();
+    try {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin`, values);
+      if (res.status === 200) {
+        console.log(res);
+        actions.resetForm();
+        toast.success('Admin login successfully');
+        push('/admin/profile');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
@@ -70,5 +86,13 @@ const Login = () => {
     </div>
   );
 };
+
+//getServerSideProps 
+//sayfa yenilirlendiğinde çalışır sayfa yüklendiğinde apiden veri gelir
+
+export const getServerSideProps = async (context) => {
+  const myCookie = context.req?.cookies || "";
+};
+
 
 export default Login;
