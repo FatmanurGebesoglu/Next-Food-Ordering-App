@@ -5,18 +5,27 @@ import { useFormik } from "formik";
 import { loginSchema } from "@/schema/loginSchema";
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const Login = () => {
-
-  const { data: session} = useSession();
-  
+  const { data: session } = useSession();
+  const { push } = useRouter();
 
   const onSubmit = async (values, actions) => {
-    const {email, password} = values;
-    let options = {redirect : false, email, password};
+    const { email, password } = values;
+    let options = { redirect: false, email, password };
     const res = await signIn("credentials", options);
-    //actions.resetForm();
+    actions.resetForm()
   };
+
+  useEffect(() => {
+    if (session) {
+      push("/profile");
+    }
+  }, [session,push])
+  
 
   console.log(session);
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
@@ -67,8 +76,14 @@ const Login = () => {
           ))}
         </div>
         <div className="flex flex-col w-full gap-y-3 mt-6">
-          <button className="btn-primary" type="submit">LOGIN</button>
-          <button className="btn-primary !bg-secondary" type="button" onClick={()=> signIn("github")}>
+          <button className="btn-primary" type="submit">
+            LOGIN
+          </button>
+          <button
+            className="btn-primary !bg-secondary"
+            type="button"
+            onClick={() => signIn("github")}
+          >
             <i className="fa fa-github mr-2 text-lg"></i>
             GITHUB
           </button>
