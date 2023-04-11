@@ -23,7 +23,9 @@ const Profile = ({session}) => {
   };
 
   useEffect(() => {
-    push('/auth/login');
+    if(!session) {
+      push('/auth/login');
+    }
   }, [session, push])
   
   
