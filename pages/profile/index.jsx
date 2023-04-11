@@ -9,10 +9,8 @@ import { useSession, signOut, getSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 
-const Profile = () => {
+const Profile = ({session}) => {
 
-  const { data: session } = useSession();
-  
 
   const [tabs, setTabs] = useState(0);
   const {push}= useRouter();
@@ -23,6 +21,11 @@ const Profile = () => {
       push('/auth/login');
     }
   };
+
+  useEffect(() => {
+    push('/auth/login');
+  }, [session, push])
+  
   
   return (
     <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col mb-10">
