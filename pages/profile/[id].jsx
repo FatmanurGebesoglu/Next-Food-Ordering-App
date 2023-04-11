@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useSession, signOut, getSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 
 const Profile = ({session}) => {
@@ -88,7 +89,7 @@ const Profile = ({session}) => {
   );
 };
 
-export async function getServerSideProps({req}) {
+export async function getServerSideProps({req, params}) {
   const session = await getSession({req});
   if(!session) {
     return {
@@ -98,11 +99,16 @@ export async function getServerSideProps({req}) {
       }
     }
   }
+
+  const user = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/${params.id}`);
+
   return {
     props: {
       session
     }
   }
 };
+
+
 
 export default Profile;

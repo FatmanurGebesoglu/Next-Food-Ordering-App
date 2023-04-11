@@ -19,7 +19,7 @@ const Login = () => {
     try {
       const res = await signIn("credentials", options);
       actions.resetForm();
-      push("/profile");
+      push("/profile/64353853a0c51e9ddbf1aca4");
       toast.success("Login successfully");
     } catch (error) {
       console.log(error);
@@ -101,7 +101,7 @@ export async function getServerSideProps({ req }) {
   if (session) {
     return {
       redirect: {
-        destination: "/profile",
+        destination: "/profile/64353853a0c51e9ddbf1aca4",
         permanent: false,
       },
     };
