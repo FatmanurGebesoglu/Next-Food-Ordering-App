@@ -5,7 +5,7 @@ import Password from "@/components/profile/Password";
 import Order from "@/components/profile/Order";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession, signOut, getSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 
@@ -23,13 +23,7 @@ const Profile = () => {
       push('/auth/login');
     }
   };
-  useEffect(() => {
-    if (!session) {
-      push("/auth/login");
-    }
-  }, [session,push])
-
-
+  
   return (
     <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col mb-10">
       <div className="lg:w-80 w-100 flex-shrink-0">
@@ -88,4 +82,22 @@ const Profile = () => {
     </div>
   );
 };
+
+export async function getServerSideProps({req}) {
+  const session = await getSession({req});
+  if(!session) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false
+      }
+    }
+  }
+  return {
+    props: {
+      session
+    }
+  }
+};
+
 export default Profile;
