@@ -5,31 +5,30 @@ import Password from "@/components/profile/Password";
 import Order from "@/components/profile/Order";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useSession, signOut, getSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
+const Profile = ({ user }) => {
 
-const Profile = ({session}) => {
-
+  const { data: session } = useSession();
 
   const [tabs, setTabs] = useState(0);
-  const {push}= useRouter();
+  const { push } = useRouter();
 
   const handleSignOut = () => {
-    if(confirm('Are you sure?')) {
-      signOut({redirect:false});
-      push('/auth/login');
+    if (confirm("Are you sure?")) {
+      signOut({ redirect: false });
+      push("/auth/login");
     }
   };
 
   useEffect(() => {
-    if(!session) {
-      push('/auth/login');
+    if (!session) {
+      push("/auth/login");
     }
-  }, [session, push])
-  
-  
+  }, [session, push]);
+
   return (
     <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col mb-10">
       <div className="lg:w-80 w-100 flex-shrink-0">
@@ -41,7 +40,7 @@ const Profile = ({session}) => {
             height={100}
             className="rounded-full"
           />
-          <b className="text-2xl mt-1">Ellie Miller</b>
+          <b className="text-2xl mt-1">{user.fullName}</b>
         </div>
         <ul className="text-center font-semibold">
           <li
@@ -74,7 +73,6 @@ const Profile = ({session}) => {
           <li
             className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all `}
             onClick={handleSignOut}
-            
           >
             <i className="fa fa-sign-out"></i>
             <button className="ml-1">Exit</button>
@@ -89,26 +87,16 @@ const Profile = ({session}) => {
   );
 };
 
-export async function getServerSideProps({req, params}) {
-  const session = await getSession({req});
-  if(!session) {
-    return {
-      redirect: {
-        destination: '/auth/login',
-        permanent: false
-      }
-    }
-  }
-
-  const user = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/${params.id}`);
+export async function getServerSideProps({ req, params }) {
+  const user = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/users/${params.id}`
+  );
 
   return {
     props: {
-      session
-    }
-  }
-};
-
-
+      user: user ? user.data : null,
+    },
+  };
+}
 
 export default Profile;

@@ -8,9 +8,10 @@ import { useSession, signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import axios from "axios";
 
-const Login = () => {
-  const { data: session } = useSession();
+const Login = ({user}) => {
+  
   const { push } = useRouter();
 
   const onSubmit = async (values, actions) => {
@@ -98,6 +99,10 @@ const Login = () => {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
+
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+  const user= res.data.find((user) => user.email === session?.user.email);
+
   if (session) {
     return {
       redirect: {
@@ -108,7 +113,7 @@ export async function getServerSideProps({ req }) {
   }
   return {
     props: {
-      session,
+      user: user ? user : null,
     },
   };
 }
