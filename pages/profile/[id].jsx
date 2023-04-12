@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const Profile = ({ user }) => {
-
+  
   const { data: session } = useSession();
 
   const [tabs, setTabs] = useState(0);
@@ -34,7 +34,7 @@ const Profile = ({ user }) => {
       <div className="lg:w-80 w-100 flex-shrink-0">
         <div className="relative flex flex-col items-center px-10 py-5 border border-b-0">
           <Image
-            src="/images/client1.jpg"
+            src={user.image ? user.image : "/images/client2.jpg"}
             alt=""
             width={100}
             height={100}
@@ -80,8 +80,8 @@ const Profile = ({ user }) => {
         </ul>
       </div>
 
-      {tabs === 0 && <Account />}
-      {tabs === 1 && <Password />}
+      {tabs === 0 && <Account user={user} />}
+      {tabs === 1 && <Password user={user} />}
       {tabs === 2 && <Order />}
     </div>
   );

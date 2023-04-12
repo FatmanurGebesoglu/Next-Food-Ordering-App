@@ -1,18 +1,17 @@
-import { Title } from "@/components/ui/Title";
-import React from "react";
-import Input from "@/components/form/Input";
-import { useFormik } from "formik";
-import { loginSchema } from "@/schema/loginSchema";
-import Link from "next/link";
-import { useSession, signIn, getSession } from "next-auth/react";
+import Input from "../../components/form/Input";
+import {Title} from "../../components/ui/Title";
+import { loginSchema } from "../../schema/loginSchema";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
-import { useEffect } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import Link from "next/link";
 
-const Login = ({user}) => {
-  
+const Login = () => {
+  const { data: session } = useSession();
   const { push } = useRouter();
+  const [currentUser, setCurrentUser] = useState();
 
   const onSubmit = async (values, actions) => {
     const { email, password } = values;
@@ -20,12 +19,25 @@ const Login = ({user}) => {
     try {
       const res = await signIn("credentials", options);
       actions.resetForm();
-      push("/profile/64353853a0c51e9ddbf1aca4");
-      toast.success("Login successfully");
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+        setCurrentUser(
+          res.data?.find((user) => user.email === session?.user?.email)
+        );
+        push("/profile/" + currentUser?._id);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [session, push, currentUser]);
 
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
@@ -36,7 +48,6 @@ const Login = ({user}) => {
       onSubmit,
       validationSchema: loginSchema,
     });
-
   const inputs = [
     {
       id: 1,
@@ -64,7 +75,7 @@ const Login = ({user}) => {
         onSubmit={handleSubmit}
       >
         <Title addclass="text-[40px] mb-6">Login</Title>
-        <div className="flex flex-col gap-y-4 w-full">
+        <div className="flex flex-col gap-y-3 w-full">
           {inputs.map((input) => (
             <Input
               key={input.id}
@@ -96,13 +107,11 @@ const Login = ({user}) => {
     </div>
   );
 };
-
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
 
   const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
-  const user= res.data.find((user) => user.email === session?.user.email);
-
+  const user = res.data?.find((user) => user.email === session?.user.email);
   if (session && user) {
     return {
       redirect: {
@@ -112,10 +121,7 @@ export async function getServerSideProps({ req }) {
     };
   }
   return {
-    props: {
-      
-    },
+    props: {},
   };
 }
-
 export default Login;
