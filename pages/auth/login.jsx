@@ -103,17 +103,17 @@ export async function getServerSideProps({ req }) {
   const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
   const user= res.data.find((user) => user.email === session?.user.email);
 
-  if (session) {
+  if (session && user) {
     return {
       redirect: {
-        destination: "/profile/64353853a0c51e9ddbf1aca4",
+        destination: "/profile/" + user._id,
         permanent: false,
       },
     };
   }
   return {
     props: {
-      user: user ? user : null,
+      
     },
   };
 }
