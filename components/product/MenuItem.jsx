@@ -9,7 +9,9 @@ const MenuItem = () => {
       <div className="w-full  bg-[#f1f2f3] h-[210px] grid place-content-center rounded-bl-[46px] rounded-tl-2xl rounded-tr-2xl">
         <Link href="/product ">
           <div className="relative w-36 h-36 hover:scale-105 transition-all ">
-            <Image src="/images/pizza.png" alt="" fill />
+            <Image src="/images/pizza.png" alt="" fill
+            priority="true"
+            />
           </div>
         </Link>
       </div>
