@@ -15,9 +15,10 @@ const CampaignItem = () => {
         <Image
           src="/images/indirim.png"
           alt=""
-          layout="fill"
-          objectFit="cover"
           className="hover:scale-105 transition-all"
+          cover= "true"
+          fill= "true"
+          priority= "true"
         />
       </div>
       <div className="text-white">

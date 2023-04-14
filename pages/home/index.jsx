@@ -6,12 +6,12 @@ import About from '../../components/ui/About';
 import Reservation from '@/components/Reservation';
 import Customers from '@/components/customers/Customers';
 
-export default function Home() {
+export default function Home({categoryList }) {
   return (
     <React.Fragment>
       <Carousel />
       <Campaigns />
-      <MenuWrapper />
+      <MenuWrapper categoryList={categoryList} />
       <About />
       <Reservation />
       <Customers />
