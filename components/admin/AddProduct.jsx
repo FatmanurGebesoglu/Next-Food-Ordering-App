@@ -46,6 +46,22 @@ const AddProduct = ({ setIsProductModal }) => {
               </div>
             </div>
 
+            <div className="flex flex-col text-sm mt-4">
+              <span className="font-semibold mb-[2px]">Extra</span>
+              <div className="flex  gap-6 md:flex-nowrap flex-wrap">
+              <input className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36" type="text" placeholder="Item" />
+              <input className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36" type="number" placeholder="Price" />
+              <button className="btn-primary ml-auto"> Add</button>
+              </div>
+              <div className="mt-2">
+                <span className="inline-block border border-orange-500 text-orange-500 p-1 rounded-xl text-xs">Ketçap</span>
+              </div>
+            </div>
+
+            <div className=" flex justify-end">
+            <button className="btn-primary !bg-success ml-auto"> Create </button>
+            </div>
+
             <button
               className="absolute top-2 right-4"
               onClick={() => setIsProductModal(false)}
