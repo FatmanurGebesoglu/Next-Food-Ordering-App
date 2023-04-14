@@ -11,7 +11,10 @@ const AddProduct = ({ setIsProductModal }) => {
         <div className="w-full h-full grid place-content-center relative ">
           <div className="relative z-50 md:w-[600px] w-[370px] bg-white border-2 p-10 rounded-3xl  ">
             <Title addclass="text-[40px] text-center">Add a New Product</Title>
-
+            <div className="flex flex-col text-sm mt-8">
+              <span className="font-semibold mb-2">Choose an image</span>
+              <input type="file" />
+            </div>
             <button
               className="absolute top-2 right-4"
               onClick={() => setIsProductModal(false)}
