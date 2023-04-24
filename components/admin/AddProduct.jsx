@@ -9,6 +9,25 @@ const AddProduct = ({ setIsProductModal }) => {
   const [file, setFile] = useState();
   const [imageSrc, setImageSrc] = useState();
 
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [category, setCategory] = useState("");
+  const [prices, setPrices] = useState([]);
+  const [extra, setExtra] = useState("");
+  const [extraOptions, setExtraOptions] = useState([]);
+
+
+  console.log(extraOptions);
+
+  const handleExtra = (e) => {
+    if(extra){
+        if(extra.text && extra.price){
+            setExtraOptions((prev) => [...prev, extra]);
+            setExtra("");
+        }
+    }
+  };
+
   const handleOnChange = (changeEvent) => {
     const reader = new FileReader();
     reader.onload = (onLoadEvent) => {
@@ -41,7 +60,7 @@ const AddProduct = ({ setIsProductModal }) => {
             <div className="flex flex-col text-sm mt-8">
               <span className="font-semibold mb-2">Choose an image</span>
               <label className="flex gap-2 items-center">
-                <input type="file" onChange={(e) => handleOnChange(e)} className="hidden" />
+                <input type="file" onChange={handleOnChange} className="hidden" />
                 <button className="btn-primary !rounded-none !bg-blue-600 pointer-events-none ">Choose an Image</button>
                 {imageSrc && 
                    <div>
@@ -58,6 +77,7 @@ const AddProduct = ({ setIsProductModal }) => {
                 className="border-2 p-1 text-sm px-2 outline-none"
                 type="text"
                 placeholder="Write a title..."
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
 
@@ -66,6 +86,7 @@ const AddProduct = ({ setIsProductModal }) => {
               <textarea
                 className="border-2 p-1 text-sm px-2 outline-none"
                 placeholder="Write a description..."
+                onChange={(e) => setDesc(e.target.value)}
               />
             </div>
 
@@ -110,13 +131,17 @@ const AddProduct = ({ setIsProductModal }) => {
                   className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36"
                   type="text"
                   placeholder="Item"
+                  name="text"
+                  onChange={(e) => setExtra({...extra, [e.target.name]: e.target.value})}
                 />
                 <input
                   className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36"
                   type="number"
                   placeholder="Price"
+                  name="price"
+                  onChange={(e) => setExtra({...extra, [e.target.name]: e.target.value})}
                 />
-                <button className="btn-primary ml-auto"> Add</button>
+                <button className="btn-primary ml-auto" onClick={handleExtra}> Add</button>
               </div>
               <div className="mt-2">
                 <span className="inline-block border border-orange-500 text-orange-500 p-1 rounded-xl text-xs">
