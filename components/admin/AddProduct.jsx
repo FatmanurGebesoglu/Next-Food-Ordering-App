@@ -4,6 +4,7 @@ import { Title } from "../ui/Title";
 import { GiCancel } from "react-icons/gi";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AddProduct = ({ setIsProductModal }) => {
   const [file, setFile] = useState();
@@ -16,15 +17,22 @@ const AddProduct = ({ setIsProductModal }) => {
   const [extra, setExtra] = useState("");
   const [extraOptions, setExtraOptions] = useState([]);
 
+  useEffect(() => {
+    const getProducts = async () => {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products`);
+      console.log(res.data);
+    }
+  
 
-  console.log(extraOptions);
+  }, [])
+  
 
   const handleExtra = (e) => {
-    if(extra){
-        if(extra.text && extra.price){
-            setExtraOptions((prev) => [...prev, extra]);
-            setExtra("");
-        }
+    if (extra) {
+      if (extra.text && extra.price) {
+        setExtraOptions((prev) => [...prev, extra]);
+        setExtra("");
+      }
     }
   };
 
@@ -39,16 +47,45 @@ const AddProduct = ({ setIsProductModal }) => {
   };
 
   const handleCreate = async () => {
-        const data = new FormData();
-        data.append("file", file);
-        data.append("upload_preset", "food-ordering");
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "food-ordering");
 
-        try {
-           const uploadRes = await axios.post("https://api.cloudinary.com/v1_1/dohmira9a/image/upload", data);
-        } catch (error) {
-           console.log(error);
-        }
+    try {
+      const uploadRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/dohmira9a/image/upload",
+        data
+      );
+
+      const { url } = uploadRes.data;
+      const newProduct = {
+        img: url,
+        title,
+        desc,
+        category: category.toLowerCase(),
+        prices,
+        extraOptions,
+      };
+
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/products`,
+        newProduct
+      );
+
+      if (res.status === 200) {
+        setIsProductModal(false);
+        toast.success("Product created successfully!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const changePrice = (e, index) => {
+    const currentPrices = prices;
+    currentPrices[index] = e.target.value;
+    setPrices(currentPrices);
+  }
 
   return (
     <div className='fixed top-0 left-0 w-screen h-screen z-50 after:content-[""] after:w-screen after:h-screen after:bg-white after:absolute after:top-0 after:left-0 after:opacity-70 first-of-type:h-screen grid place-content-center'>
@@ -60,14 +97,24 @@ const AddProduct = ({ setIsProductModal }) => {
             <div className="flex flex-col text-sm mt-8">
               <span className="font-semibold mb-2">Choose an image</span>
               <label className="flex gap-2 items-center">
-                <input type="file" onChange={handleOnChange} className="hidden" />
-                <button className="btn-primary !rounded-none !bg-blue-600 pointer-events-none ">Choose an Image</button>
-                {imageSrc && 
-                   <div>
+                <input
+                  type="file"
+                  onChange={handleOnChange}
+                  className="hidden"
+                />
+                <button className="btn-primary !rounded-none !bg-blue-600 pointer-events-none ">
+                  Choose an Image
+                </button>
+                {imageSrc && (
+                  <div>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={imageSrc} alt="" className="w-12 h-12 rounded-full" />
-                   </div>
-                }
+                    <img
+                      src={imageSrc}
+                      alt=""
+                      className="w-12 h-12 rounded-full"
+                    />
+                  </div>
+                )}
               </label>
             </div>
 
@@ -95,6 +142,7 @@ const AddProduct = ({ setIsProductModal }) => {
               <select
                 className="border-2 p-1 text-sm px-2 outline-none"
                 placeholder="Write a description..."
+                onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="1">Category 1</option>
                 <option value="2">Category 2</option>
@@ -110,16 +158,19 @@ const AddProduct = ({ setIsProductModal }) => {
                   className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36"
                   type="number"
                   placeholder="Small"
+                  onChange={(e) => changePrice(e,0)}
                 />
                 <input
                   className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36"
                   type="number"
                   placeholder="Medium"
+                  onChange={(e) => changePrice(e,1)}
                 />
                 <input
                   className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36"
                   type="number"
                   placeholder="Large"
+                  onChange={(e) => changePrice(e,2)}
                 />
               </div>
             </div>
@@ -132,26 +183,46 @@ const AddProduct = ({ setIsProductModal }) => {
                   type="text"
                   placeholder="Item"
                   name="text"
-                  onChange={(e) => setExtra({...extra, [e.target.name]: e.target.value})}
+                  onChange={(e) =>
+                    setExtra({ ...extra, [e.target.name]: e.target.value })
+                  }
                 />
                 <input
                   className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36"
                   type="number"
                   placeholder="Price"
                   name="price"
-                  onChange={(e) => setExtra({...extra, [e.target.name]: e.target.value})}
+                  onChange={(e) =>
+                    setExtra({ ...extra, [e.target.name]: e.target.value })
+                  }
                 />
-                <button className="btn-primary ml-auto" onClick={handleExtra}> Add</button>
+                <button className="btn-primary ml-auto" onClick={handleExtra}>
+                  {" "}
+                  Add
+                </button>
               </div>
-              <div className="mt-2">
-                <span className="inline-block border border-orange-500 text-orange-500 p-1 rounded-xl text-xs">
-                  Ketçap
-                </span>
+              <div className="mt-2 flex gap-2">
+                {extraOptions.map((item, index) => (
+                  <span
+                    className="inline-block border border-orange-500 text-orange-500 p-1 rounded-xl text-xs cursor-pointer"
+                    key={index}
+                    onClick={() => {
+                      setExtraOptions(
+                        extraOptions.filter((item, i) => i !== index)
+                      );
+                    }}
+                  >
+                    {item.text}
+                  </span>
+                ))}
               </div>
             </div>
 
             <div className=" flex justify-end">
-              <button className="btn-primary !bg-success ml-auto" onClick={handleCreate} >
+              <button
+                className="btn-primary !bg-success ml-auto"
+                onClick={handleCreate}
+              >
                 Create
               </button>
             </div>
