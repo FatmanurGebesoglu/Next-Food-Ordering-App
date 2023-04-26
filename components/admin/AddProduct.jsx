@@ -2,7 +2,7 @@ import React from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Title } from "../ui/Title";
 import { GiCancel } from "react-icons/gi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -16,16 +16,22 @@ const AddProduct = ({ setIsProductModal }) => {
   const [prices, setPrices] = useState([]);
   const [extra, setExtra] = useState("");
   const [extraOptions, setExtraOptions] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const getProducts = async () => {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products`);
-      console.log(res.data);
-    }
-  
-
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+        setCategories(res.data);
+      } catch (error) {
+        console.log(error);
+      }   
+    };
+    getProducts();
   }, [])
   
+
+  console.log(categories);
 
   const handleExtra = (e) => {
     if (extra) {
@@ -144,35 +150,45 @@ const AddProduct = ({ setIsProductModal }) => {
                 placeholder="Write a description..."
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="1">Category 1</option>
-                <option value="2">Category 2</option>
-                <option value="3">Category 3</option>
-                <option value="4">Category 4</option>
+                {categories.length > 0 && categories.map((category) => (
+                  <option value={category.title.toLowerCase()} key={category._id}>{category.title} </option>
+                ))}
               </select>
             </div>
 
             <div className="flex flex-col text-sm mt-4">
               <span className="font-semibold mb-[2px]">Prices</span>
-              <div className="flex justify-betweens gap-6 md:flex-nowrap flex-wrap">
-                <input
-                  className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36"
-                  type="number"
-                  placeholder="Small"
-                  onChange={(e) => changePrice(e,0)}
-                />
-                <input
-                  className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36"
-                  type="number"
-                  placeholder="Medium"
-                  onChange={(e) => changePrice(e,1)}
-                />
-                <input
-                  className="border-b-2 p-1 pl-1 text-sm px-2 outline-none w-36"
-                  type="number"
-                  placeholder="Large"
-                  onChange={(e) => changePrice(e,2)}
-                />
-              </div>
+              {category === "pizza" ? (
+                <div className="flex justify-between gap-6 w-full md:flex-nowrap flex-wrap">
+                  <input
+                    type="number"
+                    className="border-b-2 p-1 pl-0 text-sm px-1 outline-none w-36"
+                    placeholder="small"
+                    onChange={(e) => changePrice(e, 0)}
+                  />
+                  <input
+                    type="number"
+                    className="border-b-2 p-1 pl-0 text-sm px-1 outline-none w-36"
+                    placeholder="medium"
+                    onChange={(e) => changePrice(e, 1)}
+                  />
+                  <input
+                    type="number"
+                    className="border-b-2 p-1 pl-0 text-sm px-1 outline-none w-36"
+                    placeholder="large"
+                    onChange={(e) => changePrice(e, 2)}
+                  />
+                </div>
+              ) : (
+                <div className="flex justify-between gap-6 w-full md:flex-nowrap flex-wrap">
+                  <input
+                    type="number"
+                    className="border-b-2 p-1 pl-0 text-sm px-1 outline-none w-36"
+                    placeholder="small"
+                    onChange={(e) => changePrice(e, 0)}
+                  />
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col text-sm mt-4">
