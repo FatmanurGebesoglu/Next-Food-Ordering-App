@@ -6,15 +6,17 @@ import About from '../../components/ui/About';
 import Reservation from '@/components/Reservation';
 import Customers from '@/components/customers/Customers';
 
-export default function Home({categoryList }) {
+export default function Home({categoryList, productList }) {
   return (
     <React.Fragment>
       <Carousel />
       <Campaigns />
-      <MenuWrapper categoryList={categoryList} />
+      <MenuWrapper categoryList={categoryList} productList={productList } />
       <About />
       <Reservation />
       <Customers />
     </React.Fragment>
   );
 };
+
+
