@@ -3,7 +3,7 @@ import { Title } from "../ui/Title";
 import MenuItem from "./MenuItem";
 import { useState } from "react";
 
-const MenuWrapper = ({ categoryList }) => {
+const MenuWrapper = ({ categoryList, productList }) => {
   const [active, setActive] = useState(0);
   return (
     <div className="container mx-auto mb-16  ">
@@ -26,9 +26,9 @@ const MenuWrapper = ({ categoryList }) => {
       </div>
 
       <div className="mt-8 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-4">
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
+        {productList.length >0 && productList.map((product) => (
+          <MenuItem key={product._id} product={product} />
+        ))}
       </div>
     </div>
   );
