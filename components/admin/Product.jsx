@@ -3,21 +3,38 @@ import { Title } from "@/components/ui/Title";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
+ 
+  const handleDelete = async (id) => {
+    try {
+      if(confirm("Are you sure to delete this product?")){
+        const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`);
+        if(res.status === 200){
+          toast.success("Product deleted successfully");
+          getProducts();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/products`
+      );
+      setProducts(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/products`
-        );
-        setProducts(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    
     getProducts();
   }, []);
 
@@ -67,7 +84,7 @@ const Product = () => {
                     ${product.prices[0]}
                   </td>
                   <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                    <button className="bg-danger text-white px-4 py-2 rounded-md">
+                    <button className="bg-danger text-white px-4 py-2 rounded-md" onClick={()=> handleDelete(product._id)}>
                       Delete{" "}
                     </button>
                   </td>
