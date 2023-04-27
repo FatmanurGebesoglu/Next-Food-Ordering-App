@@ -87,6 +87,7 @@ const Product = () => {
                     <button className="bg-danger text-white px-4 py-2 rounded-md" onClick={()=> handleDelete(product._id)}>
                       Delete{" "}
                     </button>
+                    
                   </td>
                 </tr>
               ))}
@@ -98,3 +99,5 @@ const Product = () => {
 };
 
 export default Product;
+
+

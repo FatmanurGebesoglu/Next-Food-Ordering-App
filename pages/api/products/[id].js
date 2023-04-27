@@ -1,6 +1,7 @@
 import Product from "../../../models/Product";
 import dbConnect from "../../../util/dbConnect";
 
+
 const handler = async (req, res) => {
   await dbConnect();
   const {
