@@ -1,41 +1,100 @@
-import React from 'react'
-import { Title } from '@/components/ui/Title'
+import React from "react";
+import { Title } from "@/components/ui/Title";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+
 
 const Order = () => {
+  const [orders, setOrders] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
+
+  const { data: session } = useSession();
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/orders`
+        );
+        setOrders(
+          res.data.filter((order) => order.customer === currentUser?.fullName)
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getOrders();
+  }, [currentUser]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+        setCurrentUser(
+          res.data.filter((user) => user.email === session.user.email)[0]
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUsers();
+  }, [session]);
+
   return (
     <div>
-        <form className="lg:p-8 flex-1 lg:mt-0 mt-5" >
-      <Title addclass="text-[40px]">Order</Title>
-      <div className="overflow-x-auto w-full mt-5">
-        <table className="w-full txt-sm text-center text-gray-500 min-w-[1000px]">
-          <thead className="text-xs text-gray-400 uppercase bg-gray-700">
-            <tr>
-              <th scope="col" className="py-3 px-6" >ID</th>
-              <th scope="col" className="py-3 px-6" >ADRESS</th>
-              <th scope="col" className="py-3 px-6" >DATE</th>
-              <th scope="col" className="py-3 px-6" >TOTAL</th>
-              <th scope="col" className="py-3 px-6" >STATUS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="bg-secondary border-gray-700 hover:bg-primary transition-all ">
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
-               
-                <span>53635247</span>
-              </td>
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                <span>Sakarya</span>
-              </td>
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">04-04-2023</td>
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">$20</td>
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">preparing</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </form>
+      <form className="lg:p-8 flex-1 lg:mt-0 mt-5">
+        <Title addclass="text-[40px]">Order</Title>
+        <div className="overflow-x-auto w-full mt-5">
+          <table className="w-full txt-sm text-center text-gray-500 min-w-[1000px]">
+            <thead className="text-xs text-gray-400 uppercase bg-gray-700">
+              <tr>
+                <th scope="col" className="py-3 px-6">
+                  ID
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  ADRESS
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  DATE
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  TOTAL
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  STATUS
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            {orders.map((order) => (
+              <tr
+                className="transition-all bg-secondary border-gray-700 hover:bg-primary"
+                key={order?._id}
+              >
+                <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
+                  {order?._id.substring(0, 5)}...
+                </td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                  {order?.address}
+                </td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                  {order?.createdAt.substring(0, 10)}
+                </td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                  ${order?.total}
+                </td>
+                <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                  {order?.status}
+                </td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+        </div>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default Order
+export default Order;
