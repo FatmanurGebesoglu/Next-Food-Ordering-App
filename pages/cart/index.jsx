@@ -33,7 +33,7 @@ const Cart = ({ userList }) => {
 
           if (res.status === 200) {
             setTimeout(() => {
-              Router.push(`/orders/${res.data._id}`);
+              Router.push(`/order/${res.data._id}`);
               dispatch(reset());
               toast.success("Order created successfully" , {
                 autoClose: 1000,
