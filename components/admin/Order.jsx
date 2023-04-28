@@ -6,11 +6,13 @@ import { useState } from "react";
 const Order = () => {
 
   const [orders, setOrders] = useState([]);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     const getOrders = async () => {
       try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/orders`);
+        setOrders(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -19,6 +21,11 @@ const Order = () => {
     getOrders();
 
   }, []);
+
+  const handleStatus = async (id) => {
+      const item = orders.find((order) => order.id === id);
+      const currentStatus = item.status;
+  };
 
   return (
     <div className="lg:p-8 flex-1 lg:mt-0 mt-5">
@@ -66,7 +73,7 @@ const Order = () => {
                 <span>Preparing</span>
               </td>
               <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                <button className="bg-success text-white px-4 py-2 rounded-md">
+                <button className="bg-success text-white px-4 py-2 rounded-md" onClick={()=>handleStatus(order?._id)}>
                   Next Stage{" "}
                 </button>
               </td>
