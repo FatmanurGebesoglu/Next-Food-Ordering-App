@@ -1,7 +1,15 @@
 import Image from "next/image";
 import axios from "axios";
 
-const Order = ({order}) => {
+const Order = ({ order }) => {
+  const status = order?.status;
+
+  const statusClass = (index) => {
+    if (index - status < 1) return "";
+    if (index - status === 1) return "animate-pulse";
+    if (index - status > 1) return "";
+  };
+
   return (
     <div className="overflow-x-auto">
       <div className="min-h-[calc(100vh_-_433px)] flex  justify-center items-center flex-col p-10  min-w-[1000px]">
@@ -26,7 +34,7 @@ const Order = ({order}) => {
             <tbody>
               <tr className="transition-all bg-secondary border-gray-700 hover:bg-primary ">
                 <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
-                  {order?._id.substring(0,5)}...
+                  {order?._id.substring(0, 5)}...
                 </td>
                 <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white">
                   {order?.customer}
@@ -42,7 +50,7 @@ const Order = ({order}) => {
           </table>
         </div>
         <div className="flex justify-between w-full p-10 bg-primary mt-6">
-          <div className="relative flex flex-col">
+          <div className={`relative flex flex-col ${statusClass(0)}`}>
             <Image
               src="/images/paid.png"
               alt=""
@@ -52,7 +60,7 @@ const Order = ({order}) => {
             />
             <span>Payment</span>
           </div>
-          <div className="relative flex flex-col animate-pulse">
+          <div className={`relative flex flex-col ${statusClass(1)}`}>
             <Image
               src="/images/bake.png"
               alt=""
@@ -62,7 +70,7 @@ const Order = ({order}) => {
             />
             <span>Preparing</span>
           </div>
-          <div className="relative flex flex-col">
+          <div className={`relative flex flex-col ${statusClass(2)}`}>
             <Image
               src="/images/bike.png"
               alt=""
@@ -72,7 +80,7 @@ const Order = ({order}) => {
             />
             <span>On the way</span>
           </div>
-          <div className="relative flex flex-col">
+          <div className={`relative flex flex-col ${statusClass(3)}`}>
             <Image
               src="/images/delivered.png"
               alt=""
