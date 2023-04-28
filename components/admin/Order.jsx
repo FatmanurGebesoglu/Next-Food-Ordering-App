@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Title } from "@/components/ui/Title";
+import axios from "axios";
+import { useState } from "react";
 
 const Order = () => {
+
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/orders`);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getOrders();
+
+  }, []);
+
   return (
     <div className="lg:p-8 flex-1 lg:mt-0 mt-5">
       <Title addclass="text-[40px]">Order</Title>
@@ -30,18 +48,19 @@ const Order = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-secondary border-gray-700 hover:bg-primary transition-all ">
+            {orders.map((order) => (
+              <tr className="bg-secondary border-gray-700 hover:bg-primary transition-all " key={order._id} >
               <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white  gap-x-1 justify-center">
-                <span>343543542</span>
+                {order._id?.substring(0,5)}...
               </td>
               <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                <span>John Doe</span>
+                {order?.customer}
               </td>
               <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                $20
+                ${order?.total}
               </td>
               <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                <span>Paypal</span>
+                {order?.method === 0 ? "Cash" : "Credit Card"}
               </td>
               <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
                 <span>Preparing</span>
@@ -52,6 +71,7 @@ const Order = () => {
                 </button>
               </td>
             </tr>
+            ))}
           </tbody>
         </table>
       </div>
