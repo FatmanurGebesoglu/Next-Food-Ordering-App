@@ -76,7 +76,7 @@ const Cart = ({ userList }) => {
               {cart.products.map((product) => (
                 <tr
                   className="transition-all bg-secondary border-gray-700 hover:bg-primary"
-                  key={product.id}
+                  key={product._id}
                 >
                   <td className="py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
                     <Image src={product.img} alt="" width={50} height={50} />
