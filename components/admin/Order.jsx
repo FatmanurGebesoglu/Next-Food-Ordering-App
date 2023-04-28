@@ -4,27 +4,37 @@ import axios from "axios";
 import { useState } from "react";
 
 const Order = () => {
-
   const [orders, setOrders] = useState([]);
-  const [status, setStatus] = useState("");
-
+  const status = ["preparing", "on the way", "delivered"];
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/orders`);
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/orders`
+        );
         setOrders(res.data);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        console.log(err);
       }
     };
-
     getOrders();
-
   }, []);
 
   const handleStatus = async (id) => {
-      const item = orders.find((order) => order.id === id);
-      const currentStatus = item.status;
+    const item = orders.find((order) => order._id === id);
+    const currentStatus = item.status;
+
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/orders/${id}`,
+        {
+          status: currentStatus + 1,
+        }
+      );
+      setOrders([res.data, ...orders.filter((order) => order._id !== id)]);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -55,30 +65,43 @@ const Order = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
-              <tr className="bg-secondary border-gray-700 hover:bg-primary transition-all " key={order._id} >
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white  gap-x-1 justify-center">
-                {order._id?.substring(0,5)}...
-              </td>
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                {order?.customer}
-              </td>
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                ${order?.total}
-              </td>
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                {order?.method === 0 ? "Cash" : "Credit Card"}
-              </td>
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                <span>Preparing</span>
-              </td>
-              <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                <button className="bg-success text-white px-4 py-2 rounded-md" onClick={()=>handleStatus(order?._id)}>
-                  Next Stage{" "}
-                </button>
-              </td>
-            </tr>
-            ))}
+            {orders.length > 0 &&
+              orders
+                .sort((a, b) => {
+                  return new Date(b.createdAt) - new Date(a.createdAt);
+                  //güncel olanı en üstte göstermek için
+                })
+                .map((order) => (
+                  <tr
+                    className="bg-secondary border-gray-700 hover:bg-primary transition-all "
+                    key={order._id}
+                  >
+                    <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white  gap-x-1 justify-center">
+                      {order._id?.substring(0, 5)}...
+                    </td>
+                    <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      {order?.customer}
+                    </td>
+                    <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      ${order?.total}
+                    </td>
+                    <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      {order?.method === 0 ? "Cash" : "Credit Card"}
+                    </td>
+                    <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      {status[order?.status]}
+                    </td>
+                    <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
+                      <button
+                        className="btn-primary !bg-success"
+                        onClick={() => handleStatus(order?._id)}
+                        disabled={order?.status > 1}
+                      >
+                        Next Stage
+                      </button>
+                    </td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>
