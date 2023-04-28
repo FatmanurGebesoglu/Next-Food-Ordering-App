@@ -19,10 +19,10 @@ const OrderSchema = new mongoose.Schema(
     },
     status: {
       type: Number,
-      required: true,
     },
     method: {
       type: Number,
+      required: true,
     },
     
   },
