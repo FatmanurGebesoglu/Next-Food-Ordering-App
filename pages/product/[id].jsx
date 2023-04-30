@@ -111,7 +111,7 @@ const Index = ({ food }) => {
           onClick={handleClick}
           disabled={findCart}
         >
-          Add to Cart
+           Add to Cart
         </button>
       </div>
     </div>
