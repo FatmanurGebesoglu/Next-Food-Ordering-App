@@ -14,14 +14,14 @@ const Header = () => {
   const router = useRouter();
   return (
     <div
-      className={`h-[5.5rem] z-50 fixed w-full ${
-        router.asPath === "/" ? "bg-transparent" : "bg-secondary"
+      className={`h-[5.5rem] z-50 relative w-full ${
+        router.asPath === "/" ? "bg-transparent" : "bg-secondary !fixed"
       }`}
     >
       <div className="container mx-auto text-white flex justify-between items-center h-full">
         <Logo />
         <nav
-          className={`sm:static absolute top-0 left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden !z-50 ${
+          className={`sm:static absolute top-0 left-0 sm:w-auto sm:h-auto w-full h-screen sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden  ${
             isMenuModal === true && "!grid place-content-center"
           }`}
         >
@@ -89,17 +89,17 @@ const Header = () => {
                 }`}
                 size={18}
               />
-              <span className="px-[4px]  text-[10px] text-xs rounded-full bg-primary absolute -top-2 -right-3 text-black inline-flex items-center justify-center font-semibold ">
+              <span className="px-[5px] text-[10px]   rounded-full bg-primary absolute -top-2 -right-3 text-black inline-flex items-center justify-center font-bold">
                 {cart.products.length === 0 ? "0" : cart.products.length}
               </span>
             </span>
           </Link>
           <button onClick={() => setIsSearchModal(true)}>
             <span>
-            <FaSearch
-              className="hover:text-primary transition-all cursor-pointer"
-              size={18}
-            />
+              <FaSearch
+                className="hover:text-primary transition-all cursor-pointer"
+                size={18}
+              />
             </span>
           </button>
 
