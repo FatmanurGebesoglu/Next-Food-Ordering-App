@@ -17,7 +17,7 @@ const handler = async (req, res) => {
   if (method === "POST") {
     try {
       const newFooter = await Footer.create(req.body);
-      res.status(201).json(newFooter);
+      res.status(200).json(newFooter);
     } catch (err) {
       console.log(err);
     }
