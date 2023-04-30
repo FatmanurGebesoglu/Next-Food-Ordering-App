@@ -51,7 +51,7 @@ const Footer = () => {
               {footer?.socialMedia?.map((item) => (
                 <a
                   href={item?.link}
-                  className="w-8 h-8 grid place-content-center bg-white text-secondary rounded-full "
+                  className="w-8 h-8 grid place-content-center bg-white text-secondary rounded-full hover:text-white hover:bg-primary transition-all"
                   key={item._id}
                   target="_blank"
                   rel="noreferrer"
@@ -65,10 +65,14 @@ const Footer = () => {
             <Title addclass="text-[30px]">Opening Hours</Title>
             <div className="flex flex-col gap-y-2 mt-3">
               <div>
-                <span className="inline-block ml-2">{footer?.openingHours?.day}</span>
+                <span className="inline-block ml-2">
+                  {footer?.openingHours?.day}
+                </span>
               </div>
               <div>
-                <span className="inline-block ml-2">am {footer?.openingHours?.hour} pm</span>
+                <span className="inline-block ml-2">
+                  am {footer?.openingHours?.hour} pm
+                </span>
               </div>
             </div>
           </div>
