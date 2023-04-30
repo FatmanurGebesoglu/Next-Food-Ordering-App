@@ -7,12 +7,14 @@ import { toast } from "react-toastify";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
- 
+
   const handleDelete = async (id) => {
     try {
-      if(confirm("Are you sure to delete this product?")){
-        const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`);
-        if(res.status === 200){
+      if (confirm("Are you sure to delete this product?")) {
+        const res = await axios.delete(
+          `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`
+        );
+        if (res.status === 200) {
           toast.success("Product deleted successfully");
           getProducts();
         }
@@ -34,7 +36,6 @@ const Product = () => {
   };
 
   useEffect(() => {
-    
     getProducts();
   }, []);
 
@@ -44,7 +45,7 @@ const Product = () => {
     <div className="lg:p-8 flex-1 lg:mt-0 mt-5">
       <Title addclass="text-[40px]">Products</Title>
       <div className="overflow-auto max-h-[400px] w-full mt-5">
-        <table className="w-full text-sm text-center text-gray-500 min-w-[1000px]">
+        <table className="w-full text-sm text-center text-gray-500 xl:min-w-[1000px] ">
           <thead className="text-xs text-gray-400 uppercase bg-gray-700">
             <tr>
               <th scope="col" className="py-3 px-6">
@@ -72,10 +73,15 @@ const Product = () => {
                   key={product._id}
                 >
                   <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white flex items-center gap-x-1 justify-center">
-                    <Image src={product.img} alt={product.title} width={50} height={50} />
+                    <Image
+                      src={product.img}
+                      alt={product.title}
+                      width={50}
+                      height={50}
+                    />
                   </td>
                   <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                    <span>{product._id.substring(0,5)}...</span>
+                    <span>{product._id.substring(0, 5)}...</span>
                   </td>
                   <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
                     <span>{product.title}</span>
@@ -84,10 +90,12 @@ const Product = () => {
                     ${product.prices[0]}
                   </td>
                   <td className=" py-4 px-6 font-medium whitespace-nowrap hover:text-white">
-                    <button className="bg-danger text-white px-4 py-2 rounded-md" onClick={()=> handleDelete(product._id)}>
+                    <button
+                      className="bg-danger text-white px-4 py-2 rounded-md"
+                      onClick={() => handleDelete(product._id)}
+                    >
                       Delete{" "}
                     </button>
-                    
                   </td>
                 </tr>
               ))}
@@ -99,5 +107,3 @@ const Product = () => {
 };
 
 export default Product;
-
-
