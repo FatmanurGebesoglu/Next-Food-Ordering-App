@@ -14,32 +14,24 @@ const FooterSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    decs: {
-        type: String,
-        required: true,
-    },
-    day: {
-        type: String,
-        required: true,
-    },
-    time: {
-        type: String,
-        required: true,
+    desc: {
+      type: String,
+      required: true,
     },
     socialMedia: {
-        type: [
-            {
-                icon: {type: String},
-                link: {type: String},
-            }
-        ],
+      type: [
+        {
+          icon: { type: String },
+          link: { type: String },
+        },
+      ],
     },
     openingHours: {
-        type: {
-            day: {type : String},
-            hour: {type : String},
-        }
-    }
+      type: {
+        day: { type: String },
+        hour: { type: String },
+      },
+    },
   },
   { timestamps: true }
 );
