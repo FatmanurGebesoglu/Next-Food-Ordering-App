@@ -3,6 +3,10 @@ import Input from "../../components/form/Input";
 import { Title } from "../../components/ui/Title";
 import { useFormik } from "formik";
 import { footerSchema } from "../../schema/footerSchema";
+import axios from "axios";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+
 
 const Footer = () => {
   const [iconName, setIconName] = useState("fa fa-");
