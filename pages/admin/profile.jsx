@@ -45,7 +45,7 @@ const Profile = () => {
         </div>
         <ul className="text-center font-semibold">
           <li
-            className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
+            className={`border border-t-0 w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
               tabs === 0 && "bg-primary text-white"
             }`}
             onClick={() => setTabs(0)}
