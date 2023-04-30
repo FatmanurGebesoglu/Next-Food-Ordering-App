@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import {Title} from "../../components/ui/Title";
+import { Title } from "../../components/ui/Title";
 import { addProduct } from "../../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -14,6 +14,8 @@ const Index = ({ food }) => {
   const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
+
+  const findCart = cart.products.find((item) => item._id === food._id);
 
   const handleSize = (sizeIndex) => {
     const difference = prices[sizeIndex] - prices[size];
@@ -44,7 +46,13 @@ const Index = ({ food }) => {
   return (
     <div className="flex items-center md:h-[calc(100vh_-_88px)] gap-5 py-20 flex-wrap ">
       <div className="relative md:flex-1 md:w-[80%] md:h-[80%] w-36 h-36 mx-auto">
-        <Image src={food?.img} alt="" layout="fill" objectFit="contain" priority />
+        <Image
+          src={food?.img}
+          alt=""
+          layout="fill"
+          objectFit="contain"
+          priority
+        />
       </div>
       <div className="md:flex-1 md:text-start text-center">
         <Title addclass="text-6xl">{food?.title}</Title>
@@ -98,7 +106,11 @@ const Index = ({ food }) => {
             </label>
           ))}
         </div>
-        <button className="btn-primary" onClick={handleClick}>
+        <button
+          className="btn-primary"
+          onClick={handleClick}
+          disabled={findCart}
+        >
           Add to Cart
         </button>
       </div>
