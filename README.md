@@ -1,38 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#Food Ordering App
 
-## Getting Started
+Home Page
+<img width="946" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/7277e815-5adc-4627-872c-8d9cda5c03b1">
 
-First, run the development server:
+Menu Page
+<img width="646" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/152fabd0-0008-4b23-bb23-26d48ae72d51">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+About Page
+<img width="623" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/b53468bd-23ff-44b6-8b6e-294ee5ac2d9d">
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Book Table Page
+<img width="494" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/052db2ca-503e-4035-8815-9227809a3778">
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Login Page
+<img width="874" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/30e1eb8b-7250-480e-ad0f-a6c7fc0cf852">
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Register Page
+<img width="823" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/d5373ef1-e469-4e68-8afb-7a051c17ad5a">
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+User Page
+<img width="914" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/96525b77-1b47-4fa4-9013-4472715a67d7">
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Cart Page
+<img width="932" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/f5bd0e0d-b64f-4c21-9551-3f3a59d58a97">
 
-## Learn More
+Order Page
+<img width="932" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/c6c5ff78-9c4d-4412-873e-4714d3ae2488">
 
-To learn more about Next.js, take a look at the following resources:
+Admin Page
+<img width="909" alt="image" src="https://github.com/FatmanurGebesoglu/Next-Food-Ordering-App/assets/76436684/db227566-03b3-46ec-8b3b-941c21584d52">
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
